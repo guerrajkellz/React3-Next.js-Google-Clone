@@ -3,9 +3,30 @@ import Image from 'next/image'
 import Header from '../components/Header'
 import {SearchIcon,MicrophoneIcon} from "@heroicons/react/solid"
 import Footer from '../components/Footer'
+import {useRouter} from "next/router"
+import { useRef } from 'react'
 
 
 export default function Home() {
+  
+  const router = useRouter();
+  
+  const searchInputRef = useRef(null);
+
+  function search(event){
+
+    event.preventDefault();
+
+    const term = searchInputRef.current.value
+
+    if(!term.trim()) return;
+
+    router.push(`/search?term=${term.trim()}&searchType=`)
+
+
+
+  }
+
   return (
     <div>
       <Head>
@@ -29,10 +50,10 @@ export default function Home() {
         <div className='flex w-2/4  border rounded-full mt-5 hover:shadow-lg focus-within:shadow-lg  '>
            
             
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-6 mt-2.5 ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-6 mt-2.5 ml-2 mr-3">
             <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
             </svg>
-            <input className="flex-grow py-3   rounded-full focus:outline-none" type="text" />
+            <input ref={searchInputRef} className="flex-grow py-3   rounded-full focus:outline-none" type="text" />
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 mt-2.5 mr-2">
             <path d="M8.25 4.5a3.75 3.75 0 117.5 0v8.25a3.75 3.75 0 11-7.5 0V4.5z" />
             <path d="M6 10.5a.75.75 0 01.75.75v1.5a5.25 5.25 0 1010.5 0v-1.5a.75.75 0 011.5 0v1.5a6.751 6.751 0 01-6 6.709v2.291h3a.75.75 0 010 1.5h-7.5a.75.75 0 010-1.5h3v-2.291a6.751 6.751 0 01-6-6.709v-1.5A.75.75 0 016 10.5z" />
@@ -42,7 +63,7 @@ export default function Home() {
         </div>
        
         <div className='flex flex-col sm:flex-row mt-6 space-y-3 sm:space-y-0 sm:space-x-3 '  >
-          <button className='btn'>Google Search</button>
+          <button onClick={search} className='btn'>Google Search</button>
           <button className='btn'>I'm Feeling Lucky</button>
         </div>
 
