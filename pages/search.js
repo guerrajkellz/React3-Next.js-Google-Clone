@@ -2,10 +2,14 @@ import { fetchData } from 'next-auth/client/_utils'
 import Head from 'next/head'
 import React from 'react'
 import SearchHeader from '../components/SearchHeader'
+import SearchResults from '../components/SearchResults'
 import Response from '../Response'
+import { useRouter } from 'next/router'
 
 
 export default function search({results}) {
+
+    const Router = useRouter();
 
     console.log(results)
    
@@ -18,13 +22,15 @@ export default function search({results}) {
 
         <Head>
             
-            <title> Search Page </title>    
+            <title> {Router.query.term} -Search Page </title>    
             
             
         </Head> 
 
 
             <SearchHeader />
+
+            <SearchResults results={results} />
 
 
 
